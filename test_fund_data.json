@@ -1,0 +1,107 @@
+[
+    {
+        "timestamp": "2024-11-29T00:00:00.000000",
+        "bid_price": "1.589",
+        "offer_price": "1.589"
+    },
+    {
+        "timestamp": "2024-11-29T00:01:30.123456",
+        "bid_price": "1.590",
+        "offer_price": "1.590"
+    },
+    {
+        "timestamp": "2024-11-29T00:03:00.234567",
+        "bid_price": "1.591",
+        "offer_price": "1.591"
+    },
+    {
+        "timestamp": "2024-11-29T00:04:30.345678",
+        "bid_price": "1.588",
+        "offer_price": "1.588"
+    },
+    {
+        "timestamp": "2024-11-29T00:06:00.456789",
+        "bid_price": "1.587",
+        "offer_price": "1.587"
+    },
+    {
+        "timestamp": "2024-11-29T00:07:30.567890",
+        "bid_price": "1.589",
+        "offer_price": "1.589"
+    },
+    {
+        "timestamp": "2024-11-29T00:09:00.678901",
+        "bid_price": "1.592",
+        "offer_price": "1.592"
+    },
+    {
+        "timestamp": "2024-11-29T00:10:30.789012",
+        "bid_price": "1.593",
+        "offer_price": "1.593"
+    },
+    {
+        "timestamp": "2024-11-29T00:12:00.890123",
+        "bid_price": "1.591",
+        "offer_price": "1.591"
+    },
+    {
+        "timestamp": "2024-11-29T00:13:30.901234",
+        "bid_price": "1.590",
+        "offer_price": "1.590"
+    },
+    {
+        "timestamp": "2024-11-29T00:15:00.012345",
+        "bid_price": "1.589",
+        "offer_price": "1.589"
+    },
+    {
+        "timestamp": "2024-11-29T00:16:30.123456",
+        "bid_price": "1.587",
+        "offer_price": "1.587"
+    },
+    {
+        "timestamp": "2024-11-29T00:18:00.234567",
+        "bid_price": "1.586",
+        "offer_price": "1.586"
+    },
+    {
+        "timestamp": "2024-11-29T00:19:30.345678",
+        "bid_price": "1.585",
+        "offer_price": "1.585"
+    },
+    {
+        "timestamp": "2024-11-29T00:21:00.456789",
+        "bid_price": "1.584",
+        "offer_price": "1.584"
+    },
+    {
+        "timestamp": "2024-11-29T00:22:30.567890",
+        "bid_price": "1.586",
+        "offer_price": "1.586"
+    },
+    {
+        "timestamp": "2024-11-29T00:24:00.678901",
+        "bid_price": "1.588",
+        "offer_price": "1.588"
+    },
+    {
+        "timestamp": "2024-11-29T00:25:30.789012",
+        "bid_price": "1.590",
+        "offer_price": "1.590"
+    },
+    {
+        "timestamp": "2024-11-29T00:27:00.890123",
+        "bid_price": "1.591",
+        "offer_price": "1.591"
+    },
+    {
+        "timestamp": "2024-11-29T00:28:30.901234",
+        "bid_price": "1.589",
+        "offer_price": "1.589"
+    },
+    {
+        "timestamp": "2024-11-29T00:30:00.012345",
+        "bid_price": "1.588",
+        "offer_price": "1.588"
+    }
+]
