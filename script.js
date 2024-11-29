@@ -1,31 +1,21 @@
 
 // GitHub URL to the data file
-const GITHUB_FILE_URL = 'https://raw.githubusercontent.com/TSiD-KN/ruihan/main/data.xlsx';
+
+const GITHUB_FILE_URL = 'https://raw.githubusercontent.com/TSiD-KN/ruihan/main/fund_data.json';
 
 // Fetch data and generate the graph
 async function fetchDataAndCreateChart() {
     try {
         const response = await fetch(GITHUB_FILE_URL);
-        const dataBlob = await response.blob();
-        const reader = new FileReader();
+        const data = await response.json();  // Parse the JSON directly
 
-        reader.onload = function (e) {
-            const data = e.target.result;
-            const workbook = XLSX.read(data, { type: 'binary' });
-            const sheetName = workbook.SheetNames[0];
-            const sheet = workbook.Sheets[sheetName];
-            const jsonData = XLSX.utils.sheet_to_json(sheet);
+        // Parse timestamps and prices
+        const timestamps = data.map(row => row['timestamp']);
+        const bidPrices = data.map(row => parseFloat(row['bid_price']));
+        const offerPrices = data.map(row => parseFloat(row['offer_price']));
 
-            // Parse timestamps and prices
-            const timestamps = jsonData.map(row => row['Timestamp']);
-            const bidPrices = jsonData.map(row => parseFloat(row['Bid Price']));
-            const offerPrices = jsonData.map(row => parseFloat(row['Offer Price']));
-
-            // Create the chart
-            createChart(timestamps, bidPrices, offerPrices);
-        };
-
-        reader.readAsBinaryString(dataBlob);
+        // Create the chart
+        createChart(timestamps, bidPrices, offerPrices);
     } catch (error) {
         console.error('Error fetching or processing data:', error);
     }
