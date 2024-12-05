@@ -11,7 +11,14 @@
 <body>
     <div class="container">
         <h1>Comparison: Fund vs S&P 500 (Hourly % Change)</h1>
-        <input type="file" id="file-input" accept=".json">
+        <div>
+            <label for="fund-file">Upload Fund Data:</label>
+            <input type="file" id="fund-file" accept=".json">
+        </div>
+        <div>
+            <label for="sp500-file">Upload S&P 500 Data:</label>
+            <input type="file" id="sp500-file" accept=".json">
+        </div>
         <canvas id="priceChart"></canvas>
         <button id="download-btn" style="display:none;">Download Graph as PNG</button>
     </div>
