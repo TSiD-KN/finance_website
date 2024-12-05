@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -42,6 +43,7 @@ button:hover {
 
 canvas {
     margin-top: 20px;
-    width: 64% !important;  /* Reduced further from 80% to 64% */
-    height: 256px !important;  /* Reduced further from 320px to 256px */
+    width: 100% !important;
+    max-height: 400px; /* Prevent vertical expansion */
+    display: block; /* Avoid inline rendering issues */
 }

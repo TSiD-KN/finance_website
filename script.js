@@ -1,90 +1,68 @@
-document.getElementById('file-input').addEventListener('change', handleFileSelect);
 
-function handleFileSelect(event) {
-    const file = event.target.files[0];
-    if (!file || file.type !== 'application/json') {
-        alert("Please upload a valid JSON file.");
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const data = JSON.parse(e.target.result);
-        buildGraph(data);
-    };
-    reader.readAsText(file);
+// Function to calculate percentage change
+function calculatePercentageChange(data) {
+    return data.slice(1).map((entry, index) => {
+        const prev = parseFloat(data[index].bid_price);
+        const current = parseFloat(entry.bid_price);
+        return ((current - prev) / prev) * 100;
+    });
 }
 
-function buildGraph(data) {
-    // Parse the data
-    const labels = [];
-    const bidPrices = [];
-    const offerPrices = [];
-
-    // Extract hourly data from the last 24 hours
+// Function to filter data from the last 24 hours
+function filterLast24Hours(data) {
     const now = new Date();
-    const cutoff = now.getTime() - 24 * 60 * 60 * 1000;
+    const last24Hours = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    data.forEach(item => {
-        const timestamp = new Date(item.timestamp);
-        if (timestamp.getTime() >= cutoff) {
-            const hourLabel = timestamp.getHours() + ":" + (timestamp.getMinutes() < 10 ? '0' : '') + timestamp.getMinutes();
-            labels.push(hourLabel);
-            bidPrices.push(parseFloat(item.bid_price));
-            offerPrices.push(parseFloat(item.offer_price));
-        }
+    return data.filter(entry => {
+        const entryTime = new Date(entry.timestamp);
+        return entryTime > last24Hours;
     });
+}
 
-    // Create the chart
-    const ctx = document.getElementById('priceChart').getContext('2d');
-    const priceChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Bid Price',
-                data: bidPrices,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                borderWidth: 2
-            },
-            {
-                label: 'Offer Price',
-                data: offerPrices,
-                borderColor: 'rgba(153, 102, 255, 1)',
-                fill: false,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Hour of Day'
-                    }
+// Modify existing code to integrate the new filter and comparison
+document.getElementById('file-input').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const data = JSON.parse(event.target.result);
+            const filteredData = filterLast24Hours(data); // Apply filter here
+
+            // Calculate percentage changes for the fund data
+            const fundPercentageChanges = calculatePercentageChange(filteredData);
+
+            // Placeholder for S&P 500 data; replace this with actual data loading logic
+            const sp500Data = [...filteredData]; // Assume similar structure for example purposes
+            const sp500PercentageChanges = calculatePercentageChange(sp500Data);
+
+            const timestamps = filteredData.slice(1).map(item => new Date(item.timestamp).toLocaleTimeString());
+
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: timestamps,
+                    datasets: [
+                        {
+                            label: 'Fund Hourly % Change',
+                            data: fundPercentageChanges,
+                            borderColor: 'blue',
+                            fill: false
+                        },
+                        {
+                            label: 'S&P 500 Hourly % Change',
+                            data: sp500PercentageChanges,
+                            borderColor: 'green',
+                            fill: false
+                        }
+                    ]
                 },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Price'
-                    },
-                    beginAtZero: false
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true
                 }
-            }
-        }
-    });
-
-    // Show download button
-    document.getElementById('download-btn').style.display = 'block';
-    document.getElementById('download-btn').addEventListener('click', () => downloadGraph(priceChart));
-}
-
-function downloadGraph(chart) {
-    // Convert the chart to a PNG and download it
-    const link = document.createElement('a');
-    link.href = chart.toBase64Image();
-    link.download = 'fund_data_graph.png';
-    link.click();
-}
+            });
+        };
+        reader.readAsText(file);
+    }
+});
